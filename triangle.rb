@@ -14,13 +14,13 @@
 #   about_triangle_project_2.rb
 #
 def triangle(a, b, c)
-  if a == b && b == c && a == c
-    :equilateral 
-  elsif (a == b) || (b == c) || (a == c)
-    :isosceles 
-  else
+  sorted_lenghts = [a, b, c].sort
+  raise TriangleError if (sorted_lenghts[0] + sorted_lenghts[1] <= sorted_lenghts[2])
+  raise TriangleError if (a <= 0 || b <= 0 || c <= 0 )
+  return :equilateral if ( a == b && b == c && a == c)  
+  return  :isosceles if (a == b) || (b == c) || (a == c) 
   :scalene
-  end
+
 end
 
 
