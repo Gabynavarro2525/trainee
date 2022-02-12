@@ -326,3 +326,43 @@ Ruby permite que se omitan los paréntesis en la mayoría de las invocaciones de
 
 Las declaraciones de métodos simples incluyen una lista de nombres de argumentos separados por comas después del nombre del método.
 
+#### Métodos y paréntesis
+
+Ruby permite que se omitan los paréntesis en la mayoría de las invocaciones de métodos. En casos simples,esto da como resultado un código de aspecto limpio. En casos complejos, sin embargo, provoca ambigüedades sintácticas y casos de esquina confusos.
+
+#### Argumentos del método
+
+Las declaraciones de métodos simples incluyen una lista de nombres de argumentos separados por comas después del nombre del método.
+
+#### Arreglos y listas de argumentos de longitud variable
+Para escribir métodos que puedan aceptar un número arbitrario de argumentos ponemos un * antes de uno de los parámetros del método dentro del cuerpo del método, este parámetro se referirá a una matriz que contiene  cero o más argumentos pasados ​​en esa posición.
+
+#### Asignación de argumentos a parámetros
+Cuando una definición de método incluye parámetros con valores predeterminados o un parámetro predeterminado arreglado con un * , la asignación de valores de argumento a parámetros durante el método la invocación se vuelve un poco complicada.
+En Ruby 1.8, la posición de los parámetros especiales está restringida para que los valores de los argumentos se asignan a los parámetros de izquierda a derecha. Los primeros argumentos se asignan al
+parámetro ordinario. Si quedan argumentos restantes, se asignan al
+parámetro que tiene valores predeterminados. Y si aún hay más argumentos, se asignan al argumento de la matriz.
+
+#### Procs y Lambdas
+Los bloques son estructuras sintácticas en Ruby; no son objetos, y no pueden ser manipulados como objetos. Sin embargo, es posible crear un objeto que represente un bloque. Dependiente sobre cómo se crea el objeto, se llama proc o lambda. Los proc tienen un comportamiento de bloque y las lambdas tienen un comportamiento similar al método. Ambos, sin embargo, son instancias de la clase Proc.
+
+#### Invocación de Procs y Lambdas
+
+Procs y lambdas son objetos, no métodos, y no se pueden invocar de la  misma forma en que son invocados los métodos. Si prefiere un objeto Proc, no puede invocar p como método. Pero como p es un objeto, puede invocar un método de p. La clase Proc define un método llamado call . Al invocar este método se ejecuta el código en el bloque original. Los argumentos que pasa al método de llamada se convierten en argumentos al bloque, y el valor de retorno del bloque se convierte en el valor de retorno de la llamada método.
+
+#### La Aridad de un Proc
+La aridad de un proc o lambda es el número de argumentos que espera. Los objetos proc tienen un método de aridad que devuelve el número de argumentos que esperan.
+
+#### Igualdad de proceso
+La clase Proc define un método == para determinar si dos objetos Proc son iguales. Sin embargo, es importante entender que simplemente tener el mismo código fuente no es suficiente para hacer dos procesos o lambdas iguales entre sí.
+
+#### En qué se diferencian Lambdas de Procs
+Un proc es la forma de objeto de un bloque y se comporta como un bloque. Una lambda tiene un comportamiento ligeramente modificado y se comporta más como un método que como un bloque. Llamar a un proc es como ceder ante un bloque, mientras que llamar a una lambda es como invocar un método.
+
+#### Cierres
+En Ruby, procs y lambdas son cierres. El término “cierre” proviene de los primeros días de informática; se refiere a un objeto que es a la vez una función invocable y un enlace variable para esa función. Cuando crea un proceso o una lambda, el objeto Proc resultante contiene no solo el bloque ejecutable, sino también los enlaces para todas las variables utilizadas por el bloque.
+
+#### Objetos de método
+Los métodos y bloques de Ruby son construcciones de lenguaje ejecutables, pero no son objetos. Procs y lambdas son versiones de objetos de bloques; pueden ser ejecutados y también manipulados como datos. Ruby tiene poderosas capacidades de metaprogramación (o reflexión), y los métodos en realidad se pueden representar como instancias de la clase Method.
+
+### Classes and Modules
