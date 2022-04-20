@@ -366,3 +366,73 @@ En Ruby, procs y lambdas son cierres. El término “cierre” proviene de los p
 Los métodos y bloques de Ruby son construcciones de lenguaje ejecutables, pero no son objetos. Procs y lambdas son versiones de objetos de bloques; pueden ser ejecutados y también manipulados como datos. Ruby tiene poderosas capacidades de metaprogramación (o reflexión), y los métodos en realidad se pueden representar como instancias de la clase Method.
 
 ### Classes and Modules
+
+Cada valor en Ruby es o se comporta como un objeto. Cada objeto es una instancia de una clase. Una clase define un conjunto de métodos a los que responde un objeto. 
+
+Las clases pueden extender o subclasificar otras clases,y heredar o anular los métodos de su superclase. 
+
+Es posible definir métodos de acceso getter y setter que parecen acceder directamente al estado del objeto. Estos pares de métodos de acceso se conocen como atributos y son distintos de las variables de instancia. 
+
+En contraste con la encapsulación estricta del estado del objeto, las clases de Ruby son muy abiertas. Cualquier programa de Ruby puede agregar métodos a clases existentes, e incluso es posible agregar “métodos singleton” a objetos individuales.
+
+#### Visibilidad del método: Público, Protegido, Privado
+Los métodos de instancia pueden ser públicos, privados o protegidos.
+
+Los métodos son normalmente públicos a menos que se declaren explícitamente como privados o protegidos.
+
+Un método protegido es como un método privado en el sentido de que solo se puede invocar desde dentro de la implementación de una clase o sus subclases. Se diferencia de un método privado en que se puede invocar explícitamente en cualquier instancia de la clase, y no está restringido a invocación implícita sobre uno mismo. 
+
+#### Subclases y Herencia
+
+Cuando definimos una clase, podemos especificar que se extiende, o hereda de otra clase, conocida como la superclase. Si definimos una clase Ruby que extiende una clase Gem, decimos que Ruby es una subclase de Gem, y que Gem es la superclase de Ruby. Si no especifica una superclase cuando define una clase, entonces su clase extiende implícitamente Object . Una clase puede tener cualquier número de subclases, y cada clase tiene una sola superclase excepto Objeto, que no tiene ninguno.
+
+El hecho de que las clases puedan tener múltiples subclases pero solo una única superclase significa que se pueden organizar en una estructura de árbol, que llamamos la jerarquía de clases de Ruby.
+
+#### Herencia de constantes
+Las constantes se heredan y se pueden anular, al igual que los métodos de instancia. Hay, sin embargo, una diferencia muy importante entre la herencia de métodos y la herencia de constantes.
+
+La diferencia importante entre constantes y métodos es que las constantes se ven en el ámbito léxico del lugar en el que se utilizan antes de que se busquen en el jerarquía de herencia.
+
+### Creación e inicialización de objetos
+Los objetos normalmente se crean en Ruby llamando al nuevo método de su clase.
+#### Nuevo, asignar e inicializar
+Cada clase hereda el método de clase new. Este método tiene dos trabajos: debe asignar un nuevo objeto, en realidad traer el objeto a la existencia, y debe inicializar el objeto.
+Delega estos dos trabajos a los métodos allocate e initialize, respectivamente.
+
+#### Métodos de fábrica
+A menudo es útil permitir que las instancias de una clase se inicialicen en más de una forma. A menudo puede hacer esto proporcionando valores predeterminados de parámetros en el método de inicialización.
+
+### Módulos
+Al igual que una clase, un módulo es un grupo de métodos, constantes y variables de clase con nombre.
+Los módulos se definen como las clases, pero la palabra clave module se usa en lugar dela palabra clave de clase. A diferencia de una clase, no se puede crear una instancia de un módulo y no se puede crear una subclase. Los módulos son independientes; no hay una "jerarquía de módulos" de
+herencia.
+Los módulos se utilizan como espacios de nombres y como mixins. Las subsecciones que siguen explicanestos dos usos.
+Así como un objeto de clase es una instancia de la clase Class, un objeto de módulo es una instancia de la clase Módulo. Class es una subclase de Module . Esto significa que todas las clases son módulos,pero no todos los módulos son clases. Las clases se pueden usar como espacios de nombres, al igual que los módulos.
+
+##### Métodos Singleton y la clase propia
+Los métodos singleton de un objeto no están definidos por la clase de ese objeto. Pero ellos son métodos y deben estar asociados con una clase de algún tipo.
+
+### Búsqueda de métodos
+Cuando Ruby evalúa una expresión de invocación de método, primero debe averiguar qué se va a invocar el método. El proceso para hacer esto se llama búsqueda de método o método resolución de nombres.
+
+#### Búsqueda constante
+Cuando se hace referencia a una constante sin ningún espacio de nombres calificador, el intérprete de Ruby debe encontrar la definición apropiada de la constante. Para ello, utiliza una resolución de nombres algoritmo, tal como lo hace para encontrar definiciones de métodos. Sin embargo, las constantes se resuelven muy diferente a los métodos.
+Ruby primero intenta resolver una referencia constante en el ámbito léxico de la referencia.
+Esto significa que primero verifica la clase o módulo que encierra la referencia constante para ver si esa clase o módulo define la constante. Si no, comprueba el siguiente adjunto. Esto continúa hasta que no haya más clases o módulos adjuntos.
+
+### Reflexión y Metaprogramación
+#### Tipos, clases y módulos
+Los métodos reflexivos más comúnmente utilizados son aquellos para determinar el tipo de objeto: de qué clase es una instancia y a qué métodos responde.
+
+#### Evaluación de cadenas y bloques
+Una de las características reflexivas más poderosas y directas de Ruby es su método eval.
+
+#### Métodos
+Las clases Object y Module definen una serie de métodos para listar, consultar, invocar y definir métodos.
+
+##### Listado y prueba de métodos
+El objeto define métodos para enumerar los nombres de los métodos definidos en el objeto. Estos métodos devuelven matrices de nombres de métodos.
+
+#### Hooks 
+Module , Class y Object implementan varios métodos de devolución de llamada o ganchos. Estos métodos no están definidos por defecto, pero si los define para un módulo, clase u objeto, entonces serán invocados cuando ocurran ciertos eventos.
+
